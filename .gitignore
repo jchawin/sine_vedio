@@ -1,0 +1,11 @@
+# ไฟล์สื่อของแต่ละงาน — ไม่ push ขึ้น git (ไฟล์ใหญ่)
+projects/*/raw/*
+projects/*/out/*
+assets/person/*
+assets/product/*
+assets/music/*
+!**/.gitkeep
+
+__pycache__/
+*.pyc
+.DS_Store

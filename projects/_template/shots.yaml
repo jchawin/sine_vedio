@@ -1,0 +1,36 @@
+# โครงคลิป Shopee Video 15 วินาที แนวตั้ง 1080x1920
+# path ทุกอันอ้างอิงจากโฟลเดอร์งานนี้
+width: 1080
+height: 1920
+fps: 30
+
+shots:
+  # 0.0-3.5 วิ | HOOK — คลิปหน้าคุณจาก Flow (ใช้เสียงในคลิป)
+  - src: raw/01-hook.mp4
+    start: 0.0          # ตัดจากวินาทีที่เท่าไรของไฟล์ต้นทาง
+    duration: 3.5
+    audio: true
+
+  # 3.5-7.0 วิ | สินค้า มุมรวม — รูปจริง ใส่ซูมเข้าช้า ๆ
+  - src: ../../assets/product/01-main.jpg
+    duration: 3.5
+    motion: zoom-in     # zoom-in | zoom-out | pan-left | pan-right | none
+
+  # 7.0-10.0 วิ | สินค้า จุดขาย close-up
+  - src: ../../assets/product/02-detail.jpg
+    duration: 3.0
+    motion: pan-left
+
+  # 10.0-15.0 วิ | CTA — คลิปหน้าคุณจาก Flow
+  - src: raw/02-cta.mp4
+    start: 0.0
+    duration: 5.0
+    audio: true
+
+# เพลงประกอบ (ตัดออกได้ถ้าไม่ใช้) — ดังแค่ 12-18% พอเป็นพื้นหลัง ไม่กลบเสียงพูด
+music:
+  src: ../../assets/music/bg.mp3
+  volume: 0.15
+
+subtitles: subs.ass
+out: out/final.mp4
