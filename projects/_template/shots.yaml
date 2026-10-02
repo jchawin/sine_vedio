@@ -31,6 +31,7 @@ shots:
 music:
   src: ../../assets/music/bg.mp3
   volume: 0.15
+  start: 0.0         # เริ่มเพลงจากวินาทีที่เท่าไร
 
 subtitles: subs.ass
 out: out/final.mp4

@@ -9,3 +9,7 @@ assets/music/*
 __pycache__/
 *.pyc
 .DS_Store
+
+# contact sheet กับรายการไฟล์บนเครื่อง จาก tools/moments.py scan
+projects/*/sheets/
+projects/*/clips.json

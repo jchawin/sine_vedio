@@ -141,7 +141,9 @@ def main():
     if music and music.get("src"):
         msrc = resolve(project, str(music["src"]))
         vol = float(music.get("volume", 0.15))
-        mstream = add_input("-stream_loop", "-1", "-i", str(msrc))
+        # start = เริ่มเพลงจากวินาทีที่เท่าไร (เช่นข้ามไปท่อนฮุก)
+        mstart = float(music.get("start", 0))
+        mstream = add_input("-stream_loop", "-1", "-ss", f"{mstart}", "-i", str(msrc))
         graph.append(f"[{mstream}:a]volume={vol},atrim=duration={total},"
                      f"asetpts=PTS-STARTPTS,aformat=sample_rates=48000:channel_layouts=stereo[mus]")
         graph.append("[voice][mus]amix=inputs=2:duration=first:normalize=0,"

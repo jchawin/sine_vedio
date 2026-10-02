@@ -86,6 +86,42 @@ python3 tools/build.py projects/earbuds-01
 
 เติม `--dry-run` ถ้าอยากเห็นคำสั่ง ffmpeg เฉย ๆ ไม่ต้อง render
 
+## ตัดคลิปรวม moment ตามท่อนเพลง (`tools/moments.py`)
+
+ใช้กับวีดีโอที่ถ่ายเองทั้งโฟลเดอร์ เช่น รวม moment น่ารักของลูก ใส่เพลงยาว 22 วินาที
+สคริปต์นี้รันบนเครื่องที่มีไฟล์วีดีโออยู่ (เช่น Mac ของคุณ) หลังรัน `./setup.sh` แล้ว
+
+**1. สแกนโฟลเดอร์** แล้วทำ contact sheet ของแต่ละคลิป
+
+```bash
+python3 tools/moments.py scan ~/Downloads/LEON --project projects/LEON_2_OCT
+```
+
+ได้ `projects/LEON_2_OCT/sheets/V01.jpg`, `V02.jpg`, ... แต่ละช่องคือ 1 เฟรม
+มีเลขคลิปกับวินาทีกำกับ (คลิปยาวจะเว้นช่วงห่างขึ้น ไม่เกิน 36 ช่องต่อคลิป)
+
+**2. เลือก moment** — ส่งรูปใน `sheets/` ให้ Claude เลือกช่วงที่น่ารัก หรือเลือกเอง
+แล้วเขียนลง `projects/LEON_2_OCT/plan.txt` บรรทัดละช็อต รวมให้ได้ 22 วินาทีพอดี
+
+```
+V03  12.0  2.5   # หัวเราะ
+V07   4.0  3.0   # ทำหน้าบึ้ง
+```
+
+**3. ตัดต่อ** ใส่เพลงโดยเริ่มที่ท่อนที่ต้องการ (`--music-start` เป็นวินาทีในเพลง)
+
+```bash
+python3 tools/moments.py cut --project projects/LEON_2_OCT \
+    --music ~/Downloads/ยิ้มอันตราย.mp3 --music-start 45
+```
+
+ได้ `projects/LEON_2_OCT/out/final.mp4` (1080x1920 เสียงเพลงอย่างเดียว ตัดเสียงในคลิปออก)
+เปิด CapCut → New project → import `final.mp4` แล้วตั้งชื่อโปรเจกต์ `LEON_2_OCT`
+จะใส่สติกเกอร์ ข้อความ หรือขยับจังหวะให้ตรงบีตต่อในนั้นได้
+
+คลิปแนวนอนจะถูกครอปตรงกลางให้เป็นแนวตั้ง ถ้าตัวลูกอยู่ชิดขอบเฟรม
+ให้เลือกช่วงอื่น หรือไปขยับเฟรมเองใน CapCut
+
 ## โครงไฟล์
 
 ```
@@ -98,6 +134,7 @@ projects/_template/ แม่แบบงาน ก๊อปไปใช้ต�
 projects/<งาน>/     งานจริงแต่ละคลิป
 tools/build.py      ประกอบคลิป
 tools/make_ass.py   สร้างซับ .ass
+tools/moments.py    contact sheet + ตัดคลิปรวม moment ตามเพลง
 ```
 
 ไฟล์วีดีโอกับรูปไม่ถูก commit (ดู `.gitignore`) — git เก็บแต่บท ซับ และค่าตั้ง
